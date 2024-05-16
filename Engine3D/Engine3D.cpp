@@ -3,22 +3,13 @@
 #include "Cube.hpp"
 #include "Sphere.hpp"
 #include "Cone.hpp"
+#include "InputHandler.hpp"
 
-float cameraX = 0.0f;
-float cameraY = 0.0f;
-float cameraZ = 5.0f;
-
-// Globalne zmienne przechowujące pozycję kamery
-float cameraPosX = 0.0f;
-float cameraPosY = 0.0f;
-float cameraPosZ = 5.0f;
-
-// Kąty obrotu kamery
-float cameraAngleX = 0.0f;
-float cameraAngleY = 0.0f;
+Engine3D* Engine3D::instance = nullptr;
 
 Engine3D::Engine3D(const std::string& windowTitle, int windowWidth, int windowHeight)
     : m_windowTitle(windowTitle), m_windowWidth(windowWidth), m_windowHeight(windowHeight) {
+    instance = this; // Ustaw wskaźnik na tę instancję
     initGLUT();
 }
 
@@ -30,10 +21,9 @@ void Engine3D::run() {
     // Ustawienie funkcji callback
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
-	glutSpecialFunc(specialKeys);
-    glutKeyboardFunc(keyboard);
-   //glutSolidCube(100.0f);
-    //glutReshapeFunc(reshapeCallback);
+	glutSpecialFunc(specialKeyboardKeysHandler);
+    glutKeyboardFunc(keyboardKeysHandler);
+	glutMouseFunc(mouseHandler);
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Ustawienie koloru tła na czarny
     glEnable(GL_DEPTH_TEST);
@@ -73,9 +63,10 @@ void Engine3D::display() {
     //gluLookAt(cameraX, cameraY, cameraZ,   // Pozycja kamery
       //  0.0, 0.0, 0.0,   
         //0.0, 1.0, 0.0);
-    gluLookAt(cameraPosX, cameraPosY, cameraPosZ,  // Pozycja kamery
-        cameraPosX + sin(cameraAngleY), cameraPosY + sin(cameraAngleX), cameraPosZ - cos(cameraAngleY),  // Punkt patrzenia kamery
+    gluLookAt(instance->cameraPosX, instance->cameraPosY, instance->cameraPosZ,  // Pozycja kamery
+        instance->cameraPosX + sin(instance->cameraAngleY), instance->cameraPosY + sin(instance->cameraAngleX), instance->cameraPosZ - cos(instance->cameraAngleY),
         0.0f, 1.0f, 0.0f); // Wektor wskazujący górę
+
 
 	cube.draw();
     sphere.draw();
@@ -84,38 +75,23 @@ void Engine3D::display() {
 
 }
 
-//test
 
-void Engine3D::specialKeys(int key, int x, int y) {
-   // void specialKeys(int key, int x, int y) {
-        switch (key) {
-        case GLUT_KEY_UP:
-            // Obróć kamerę w górę
-            cameraAngleX += 0.1f;
-            break;
-        case GLUT_KEY_DOWN:
-            // Obróć kamerę w dół
-            cameraAngleX -= 0.1f;
-            break;
-        case GLUT_KEY_LEFT:
-            // Obróć kamerę w lewo
-            cameraAngleY -= 0.1f;
-            break;
-        case GLUT_KEY_RIGHT:
-            // Obróć kamerę w prawo
-            cameraAngleY += 0.1f;
-            break;
-        }
-        glutPostRedisplay();
+
+void Engine3D::specialKeyboardKeysHandler(int key, int x, int y) {
+
+    if (instance) {
+        InputHandler::rotateCamera(key, instance->cameraAngleX, instance->cameraAngleY);
+    }
+ 
     }
 
-void Engine3D::keyboard(unsigned char key, int x, int y) {
-    switch (key) {
-    case ' ':
-        // Przesuń kamerę w kierunku patrzenia
-        cameraPosX += 0.1f * sin(cameraAngleY);
-        cameraPosZ -= 0.1f * cos(cameraAngleY);
-        break;
-    }
-    glutPostRedisplay();
+void Engine3D::keyboardKeysHandler(unsigned char key, int x, int y) {
+    
+       // InputHandler::moveInDirection(key, instance->cameraPosX, instance->cameraPosZ, instance->cameraAngleY);
+   }
+
+
+void Engine3D::mouseHandler(int button, int state, int x, int y) {
+	
+    InputHandler::moveInDirection(button, instance->cameraPosX, instance->cameraPosZ, instance->cameraAngleY);
 }

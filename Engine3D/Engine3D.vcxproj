@@ -138,6 +138,8 @@
     <ClCompile Include="Cone.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Engine3D.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="InputHandler.hpp" />
     <ClCompile Include="mian.cpp" />
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="Sphere.cpp" />
