@@ -10,13 +10,14 @@ class Engine3D {
 public:
     Engine3D(const std::string& windowTitle, int windowWidth, int windowHeight);
     void run();
-    ;
     float cameraAngleX = 0.0f;
     float cameraAngleY = 0.0f;
 
     float cameraPosX = 0.0f;
     float cameraPosY = 0.0f;
     float cameraPosZ = 5.0f;
+    
+    float fps=60;
 
 private:
     std::string m_windowTitle;
@@ -30,6 +31,8 @@ private:
     static void reshape(int w, int h);
     static void keyboardKeysHandler(unsigned char key, int x, int y);
     static void mouseHandler(int button, int state, int x, int y);
+    static void timer();
+    static void OnTimer(int val);
     void initGLUT();
 };
 
