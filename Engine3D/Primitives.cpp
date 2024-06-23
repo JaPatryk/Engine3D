@@ -38,7 +38,7 @@ void Primitives::setRotateZ(float rotateZ) {
 void Primitives::setRotate(float rotate) {
 	this->rotate = rotate;
 }
-// Implementacje funkcji get
+
 float Primitives::getX() const {
     return m_x;
 }
@@ -92,5 +92,22 @@ void Primitives::autoRotate() {
 			this->setRotateZ(0.1f);
 		}
 	
+
+};
+void Primitives::sideToSide() 
+{	
+
+	if (this->movingRight) {
+		this->m_x += 0.1f;
+		if (this->m_x >= 10.0f) {
+			this->movingRight = false;
+		}
+	}
+	else {
+		this->m_x -= 0.1f;
+		if (this->m_x <= -10.0f) {
+			this->movingRight = true;
+		}
+	}
 
 };

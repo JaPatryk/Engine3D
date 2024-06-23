@@ -108,12 +108,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\freeglut\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\freeglut\include;C:\glm-master</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\freeglut\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\freeglut\lib\x64;C:\glew\lib\Release\x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -124,14 +124,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\freeglut\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\freeglut\include;C:\glm-master</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\freeglut\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\freeglut\lib\x64;C:\glew\lib\Release\x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -150,6 +150,7 @@
     <ClInclude Include="Engine3D.hpp" />
     <ClInclude Include="Primitives.hpp" />
     <ClInclude Include="Sphere.hpp" />
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
